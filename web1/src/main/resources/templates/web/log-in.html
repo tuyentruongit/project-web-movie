@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" th:href="@{/web/css/styleLogin.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+</head>
+<body>
+
+<div class="container-Login">
+    <form action="">
+        <h3 class="title-Page">Đăng Nhập</h3>
+        <div class="social-icons">
+            <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <div class="nameAccount">
+            <input type="text" placeholder="Email">
+        </div>
+        <div class="passwordAccount">
+            <input id="btnInput" type="password" placeholder="Mật khẩu">
+            <button type="button" id="btnPassword"><i class="fa-solid fa-eye"></i></button>
+        </div>
+        <div class="creatAcc-forgetPass">
+            <a href="">Quên mật khẩu?</a>
+            <a th:href="@{/create-account}">Tạo tài khoản?</a>
+        </div>
+        <div class="btnLogin-CreateAcc">
+            <button>Đăng Nhập</button>
+        </div>
+
+    </form>
+
+
+</div>
+
+
+
+
+
+
+<script th:src="@{/web/js/Login-CreateAcc.js}"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+.container-Login{
+    margin: auto;
+    margin-top: 100px;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    width: 500px;
+    max-width: 100%;
+    min-height: 480px;
+    padding: 30px 0px  ;
+}
+
+.title-Page{
+    display: flex;
+    justify-content: center;
+}
+.social-icons{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+}
+
+.nameAccount{
+    display: flex;
+    justify-content: center;
+    padding: 10px 50px;
+
+
+}
+.passwordAccount{
+    display: flex;
+    justify-content: center;
+    padding: 10px 50px;
+    border-radius: 0px 8px;
+
+}
+.nameAccount input{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+.passwordAccount input{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    width: 100%;
+    outline: none;
+    border-radius: 8px  0px  0px 8px;
+}
+.passwordAccount button{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    outline: none;
+    border-radius: 0px  8px  8px 0px;
+}
+.creatAcc-forgetPass{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 60px;
+}
+.btnLogin-CreateAcc{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.btnLogin-CreateAcc button{
+    background-color: #512da8;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.notify-massage{
+    padding: 10px 50px;
+}
