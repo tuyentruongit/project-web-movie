@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header class="header" th:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container ">
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/web/img/logo-web.webp}" alt="Ảnh Logo">
+                </a>
+                <div class="navbar-nav search">
+
+                    <input class="w-100 ps-3" type="text" placeholder="Tìm Kiếm . . .">
+
+                    <button class="button-search btn btn-outline-none"><i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div>
+                    <th:block th:if="${session.currentUser == null}">
+                        <a target="_blank" class="nav-link text-decoration-none text-reset login" th:href="@{/log-in}">Đăng Nhập
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    </th:block>
+                    <th:block th:if="${session.currentUser != null}">
+                        <a target="_blank" class="nav-link text-decoration-none text-reset login" th:href="@{/log-in}"><th:block th:text="${session.currentUser.name}"></th:block>
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="wrap-item w-100 " th:fragment="category-list">
+    <ul id="menuList" class="list-unstyled ps-3 py-2">
+        <h5>Danh Mục</h5>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" th:href="@{/}">Trang Chủ</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" th:href="@{/phim-le}">Phim Lẻ</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" th:href="@{/series-movie}">Phim Dài tập</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" th:href="@{/phim-chieu-rap}">Phim Chiếu Rạp</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" href="">Thể Loại</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" href="">Quốc Gia</a>
+        </li>
+        <li class="item ms-3 py-2">
+            <a class="nav-link text-dark px-0 py-0 menu-item" th:href="@{/tin-tuc}">Tin Tức</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

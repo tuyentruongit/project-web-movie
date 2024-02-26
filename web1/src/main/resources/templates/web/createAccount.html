@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{::#css},~{::#main-content},~{::#js})}">
+<head>
+
+    <title>Đăng Ký</title>
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/web/css/style-Login-Register.css}">
+    </th:block>
+</head>
+<body>
+
+<th:block id="main-content">
+    <div class="container-Login">
+        <form id="register" >
+            <h3 class="title-Page">Đăng ký</h3>
+           <div class="form-group">
+               <div  class="nameAccount">
+                   <input name="nameUser" id="nameUser" type="text" placeholder="Tên">
+               </div>
+           </div>
+           <div class="form-group">
+               <div  class="nameAccount">
+                   <input name="contentEmail" id='emailUser' type="text" placeholder="Email">
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="passwordAccount">
+                   <input name="contentPassword" id="btnInput" type="password" placeholder="Mật khẩu">
+                   <button type="button" id="btnPassword"><i class="fa-solid fa-eye"></i></button>
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="passwordAccount">
+                   <input name="contentPasswordConfirm" id="btnInputConfirm" type="password" placeholder="Nhập lại mật khẩu ">
+                   <button type="button" id="btnPasswordConfirm"><i class="fa-solid fa-eye"></i></button>
+               </div>
+           </div>
+            <div class="creatAcc-forgetPass">
+                <a th:href="@{/log-in}"> Đăng Nhập ?</a>
+            </div>
+            <div class="btnLogin-CreateAcc">
+                <button type="button" id="btn-register">Đăng Ký</button>
+            </div>
+        </form>
+    </div>
+</th:block>
+<th:block id="js">
+    <script th:src="@{/web/js/RegistterJS.js}"></script>
+</th:block>
+</body>
+</html>

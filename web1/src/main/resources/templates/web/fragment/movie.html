@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body >
+<div class="movie" th:fragment="movieItem(movie)">
+    <a class="text-decoration-none text-reset" th:href="@{phim/{id}/{slug} (id= ${movie.id} , slug=${movie.slug}) } ">
+        <img class="rounded overflow-hidden w-100" th:src="${movie.poster}" alt="">
+        <div class="infomation-movie my-2">
+            <p class="title-movie h-100" th:text="${movie.title}"></p>
+            <p class="mb-6"><th:block th:text="${movie.relishYear}"></th:block> </p>
+        </div>
+    </a>
+</div>
+
+</body>
+</html>
