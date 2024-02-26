@@ -138,9 +138,9 @@ public class WebController {
         return "web/log-in";
 
     }
-    @GetMapping("/create-account")
+    @GetMapping("/tao-tai-khoan")
     public String createAccount (Model model){
-        return "web/create-account";
+      return "web/createAccount";
 
     }
 

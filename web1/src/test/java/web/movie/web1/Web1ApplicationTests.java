@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import web.movie.web1.entity.*;
 import web.movie.web1.model.Role;
 import web.movie.web1.repository.*;
@@ -29,6 +30,9 @@ class Web1ApplicationTests {
     private GenreRepository genreRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
 
 
@@ -220,6 +224,19 @@ class Web1ApplicationTests {
             reviewRepository.save(review);
 
         }
+    }
+
+    @Test
+    void updatePassword(){
+        List<User> users = userRepository.findAll();
+        users.forEach(
+                user -> {
+                    user.setPassword(passwordEncoder.encode("123"));
+                    userRepository.save(user);
+                }
+
+        );
+
     }
 
 

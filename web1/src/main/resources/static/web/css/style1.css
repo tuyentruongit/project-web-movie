@@ -1,6 +1,7 @@
 
 
 
+
 /* navbar */
 .header{
     background-color:#F0F0F0;
@@ -173,6 +174,10 @@
 .modal-body input{
     height: 100px;
     border-radius: 10px;
+}
+
+.wrap-item #menuList .item a.active {
+    color: red !important;
 }
 
 
