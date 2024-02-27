@@ -1,5 +1,5 @@
-const passwordUserEl = document.querySelector("#btnInput");
-const btnPass = document.getElementById("btnPassword")
+let passwordUserEl = document.querySelector("#btnInput");
+let btnPass = document.getElementById("btnPassword")
 btnPass.addEventListener('click', function() {
     if (passwordUserEl.getAttribute('type') === 'password') {
         passwordUserEl.setAttribute('type', 'text');
@@ -8,8 +8,8 @@ btnPass.addEventListener('click', function() {
         passwordUserEl.setAttribute('type', 'password');
     }
 })
-const inputPassCF = document.getElementById("btnInputConfirm")
-const btnPassCF = document.getElementById("btnPasswordConfirm")
+let inputPassCF = document.getElementById("btnInputConfirm")
+let btnPassCF = document.getElementById("btnPasswordConfirm")
 btnPassCF.addEventListener('click', function() {
     if (inputPassCF.getAttribute('type') === 'password') {
         inputPassCF.setAttribute('type', 'text');
@@ -17,7 +17,7 @@ btnPassCF.addEventListener('click', function() {
         inputPassCF.setAttribute('type', 'password');
     }
 })
-const submitRegister  = document.getElementById("btn-register");
+let submitRegister  = document.getElementById("btn-register");
 let nameUserEl = document.querySelector("#nameUser");
 let emailUserEl = document.querySelector("#emailUser");
 
@@ -25,7 +25,7 @@ submitRegister.addEventListener('click' , (e)=>{
     e.preventDefault()
     if (!$('#register').valid()) return;
 
-    const  data = {
+    let  data = {
         email : emailUserEl.value,
         password : passwordUserEl.value,
         name : nameUserEl.value
@@ -62,7 +62,7 @@ $('#register').validate({
         },
         contentPasswordConfirm : {
             required: true,
-            equalTo : "#password"
+            equalTo : "#contentPassword"
         }
 
     },
