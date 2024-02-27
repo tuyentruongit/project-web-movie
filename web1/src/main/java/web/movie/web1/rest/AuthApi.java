@@ -15,7 +15,7 @@ import web.movie.web1.service.AuthService;
 public class AuthApi {
     private final AuthService authService;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         authService.login(loginRequest);
         return ResponseEntity.ok().build();

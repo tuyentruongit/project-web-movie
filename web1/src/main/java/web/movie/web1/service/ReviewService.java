@@ -1,5 +1,6 @@
 package web.movie.web1.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     private final MovieRepository movieRepository;
+    private final HttpSession session;
     public List<Review> getReviewById (Integer id){
 
      List<Review> reviewList = reviewRepository.findAll().stream()
@@ -35,16 +37,8 @@ public class ReviewService {
     }
 
     public Review createReiview(UpsertReviewRequest reviewRequest) {
-        //TODO: Fix UserId = 1;
-        Integer userId = 1;
-
-
-        // Tìm kiếm user
-        User user = userRepository.findById(userId)
-                .orElseThrow(()->new ResourceNotFound("Cannot find user by Id : " + userId));
-
+        User user = (User) session.getAttribute("currentUser");
         // kiểm tra movie có tồn tại không
-
         Movie movie  = movieRepository.findById(reviewRequest.getMovieId())
                 .orElseThrow(()-> new ResourceNotFound("Cannot find movie by Id : "+reviewRequest.getMovieId()));
 
@@ -60,13 +54,10 @@ public class ReviewService {
     }
 
     public Review updateReiview(Integer id, UpsertReviewRequest reviewRequest) {
-        Integer userId = 1;
-        // Tìm kiếm user
-        User user = userRepository.findById(userId)
-                .orElseThrow(()->new ResourceNotFound("Cannot find user by Id : " + userId));
+
+        User user = (User) session.getAttribute("currentUser");
 
         // kiểm tra movie có tồn tại không
-
         Movie movie  = movieRepository.findById(reviewRequest.getMovieId())
                 .orElseThrow(()-> new ResourceNotFound("Cannot find movie by Id : "+reviewRequest.getMovieId()));
         // kiểm tra review có tồn tại hay không
@@ -92,10 +83,9 @@ public class ReviewService {
     }
 
     public void deleteReview(Integer id) {
-        Integer userId = 1;
-        // Tìm kiếm user
-        User user = userRepository.findById(userId)
-                .orElseThrow(()->new ResourceNotFound("Cannot find user by Id : " + userId));
+
+        User user = (User) session.getAttribute("currentUser");
+
         Review review =reviewRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFound("Canno find review by Id : " + id));
 

@@ -169,12 +169,19 @@ const renderReview = (reviews) => {
                                    ${review.comment}
                                 </p>
                                  <span class="rating-time mb-0 ms-2">${formatDate(review.createdAt)}</span>
-                                <span class="update-review">
-                                <button class="btn bg-transparent text-decoration-underline text-primary" onclick="openModalUpdateReview(${review.id})" href="">Chỉnh sửa </button>
-                                </span>
-                                <span class="delete-review">
-                                 <button class="btn bg-transparent text-decoration-underline text-danger" onclick="deleteReview(${review.id})"> Xóa </button>
-                                </span>
+                              
+                                 ${ currentUser && currentUser.id === review.user.id ? `
+                                     <span class="update-review"  >
+                                  <button class="btn bg-transparent text-decoration-underline text-primary" onclick="openModalUpdateReview(${review.id})" href="">Chỉnh sửa </button>
+                                 </span>
+                                  <span class="delete-review">
+                                   <button class="btn bg-transparent text-decoration-underline text-danger" onclick="deleteReview(${review.id})"> Xóa </button>
+                                  </span>
+                                `:''}
+                                 
+                               
+                               
+                                
                             </div>
 
                         </div>

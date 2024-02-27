@@ -16,7 +16,6 @@ import web.movie.web1.service.ReviewService;
 @RequestMapping("/api/reviews")
 @RequiredArgsConstructor
 public class ReviewApi {
-
     private final ReviewService reviewService;
     // Create Review - Post
     @PostMapping()

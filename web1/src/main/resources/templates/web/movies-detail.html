@@ -134,14 +134,17 @@ th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{},~{::#mai
                         </div>
                     </div>
                     <div class="row">
-                        <span>Vui lòng <a th:href="@{/log-in}" target="_blank">đăng nhâp</a> để viết bình luận </span>
+                        <th:block th:if="${session.currentUser == null}">
+                            <span>Vui lòng <a th:href="@{/log-in}" target="_blank">đăng nhâp</a> để viết bình luận </span>
+                        </th:block>
                         <div id="exampleModals"  class="cancel-comment d-flex justify-content-end">
                             <!--                        <button style="background-color:#F0F0F0" type="button" class="mx-2">Hủy</button>-->
                             <!-- Button trigger modal -->
-                            <button id="btn-modal-review" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                Viết đánh giá
-                            </button>
+                            <span  th:class="${session.currentUser==null ? 'd-none' : 'd-inline-block'}" >
+                                <button id="btn-modal-review" type="button" class="btn btn-primary">
+                                    Viết đánh giá
+                                </button>
+                            </span>
 
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -275,6 +278,8 @@ th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{},~{::#mai
     <script th:src="@{/web/js/notify-active.js}"></script>
 
     <script th:inline="javascript">
+        let currentUser = [[${session.currentUser}]];
+        console.log(currentUser);
         const movieId = [[${movieDetail}]];
         let reviewList = [[${reviewList}]];
 
