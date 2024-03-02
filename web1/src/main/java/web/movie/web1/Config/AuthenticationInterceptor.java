@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpUpgradeHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import web.movie.web1.entity.User;
+
 @Configuration
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override

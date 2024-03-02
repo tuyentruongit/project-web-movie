@@ -12,5 +12,6 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog,Integer> {
     Page<Blog> findBlogByStatus(Boolean status, Pageable pageable);
     List<Blog> findAllByStatus(Boolean status);
+    List<Blog> findByUserEmailOrderByCreateAtDesc(String email);
 
 }

@@ -125,7 +125,7 @@ class Web1ApplicationTests {
         List<User> listAdmin = userRepository.findByRole(Role.ROLE_ADMIN);
         Random random = new Random();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             int index = random.nextInt(listAdmin.size());
             User user = listAdmin.get(index);
             String title = faker.book().title();

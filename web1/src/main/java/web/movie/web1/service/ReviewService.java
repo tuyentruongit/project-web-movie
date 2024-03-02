@@ -30,10 +30,9 @@ public class ReviewService {
     private final HttpSession session;
     public List<Review> getReviewById (Integer id){
 
-     List<Review> reviewList = reviewRepository.findAll().stream()
+        return reviewRepository.findAll().stream()
              .filter(review -> Objects.equals(review.getMovie().getId(), id))
              .toList();
-     return reviewList;
     }
 
     public Review createReiview(UpsertReviewRequest reviewRequest) {

@@ -110,7 +110,6 @@ $('#form-review').validate({
     messages: {
         content: {
             required: "Vui lòng nhập nội dung đánh giá ",
-            email: "Please enter a valid email address"
         },
     },
     errorElement: 'span',

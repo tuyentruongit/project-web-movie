@@ -32,7 +32,6 @@ public class Blog {
     Boolean status;
 
 
-
     Date createAt;
     Date updateAt;
     Date publishedAt;

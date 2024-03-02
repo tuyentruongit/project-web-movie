@@ -7,7 +7,7 @@
 </head>
 <body >
 <div class="movie" th:fragment="movieItem(movie)">
-    <a class="text-decoration-none text-reset" th:href="@{phim/{id}/{slug} (id= ${movie.id} , slug=${movie.slug}) } ">
+    <a class="text-decoration-none text-reset" th:href="@{/phim/{id}/{slug} (id=${movie.id},slug=${movie.slug}) }">
         <img class="rounded overflow-hidden w-100" th:src="${movie.poster}" alt="">
         <div class="infomation-movie my-2">
             <p class="title-movie h-100" th:text="${movie.title}"></p>

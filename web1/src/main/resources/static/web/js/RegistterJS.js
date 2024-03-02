@@ -1,5 +1,5 @@
 let passwordUserEl = document.querySelector("#btnInput");
-let btnPass = document.getElementById("btnPassword")
+let btnPass = document.getElementById("btnPassword");
 btnPass.addEventListener('click', function() {
     if (passwordUserEl.getAttribute('type') === 'password') {
         passwordUserEl.setAttribute('type', 'text');
@@ -49,7 +49,6 @@ submitRegister.addEventListener('click' , (e)=>{
 })
 $('#register').validate({
     rules: {
-
         nameUser : {
             required:true,
         },
@@ -57,12 +56,12 @@ $('#register').validate({
             required: true,
             email: true,
         },
-        contentPassword : {
+        contentPassword: {
             required: true,
         },
-        contentPasswordConfirm : {
+        contentPasswordConfirm: {
             required: true,
-            equalTo : "#contentPassword"
+            equalTo: "#btnInput"
         }
 
     },
@@ -78,7 +77,8 @@ $('#register').validate({
             required: "Vui lòng nhập mật khẩu",
         },
         contentPasswordConfirm: {
-            required: "Mật khẩu không trùng khớp",
+            required: "Vui lòng nhập mật khẩu",
+            equalTo: "Mật khẩu xác nhận không khớp"
         },
     },
     errorElement: 'span',
