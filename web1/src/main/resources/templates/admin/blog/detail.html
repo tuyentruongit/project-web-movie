@@ -50,16 +50,13 @@
                         <button type="button" class="btn btn-default">
                             <i class="fas fa-chevron-left"></i> Quay lại
                         </button>
-                        <button type="button" class="btn btn-info px-4">
+                        <button id="update" type="button" class="btn btn-info px-4">
                             Lưu
-                        </button>
-                        <button type="button" class="btn btn-primary px-4">
-                            Preview
                         </button>
                     </div>
 
                     <div class="col-6 d-flex justify-content-end">
-                        <button type="button" class="btn btn-danger px-4">
+                        <button id="deleteBlog" type="button" class="btn btn-danger px-4">
                             Xóa
                         </button>
                     </div>
@@ -70,21 +67,25 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label>Tiêu đề</label>
-                                            <input th:text="${blogAdminDetail.title}"  name="title" type="text" class="form-control" id="title" />
-                                        </div>
+                                    <div class="col-md-8" >
+                                        <form id="form-blog-detail">
+                                            <div class="form-group">
+                                                <label>Tiêu đề</label>
+                                                <input  name="title" type="text" class="form-control" id="title" />
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label>Nội dung</label>
-                                            <textarea type="text"   id="content"></textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Mô tả ngắn</label>
-                                            <textarea  th:text="${blogAdminDetail.description}" id="description" class="form-control" rows="3"></textarea>
-                                        </div>
+                                            <div class="form-group">
+                                                <label>Nội dung</label>
+                                                <textarea class="d-none" name="content" id="content"></textarea>
+                                                <div >
+                                                    <textarea id="editor"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Mô tả ngắn</label>
+                                                <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </form>
                                     </div>
 
                                     <div class="col-md-4">
@@ -166,21 +167,21 @@
     </script>
 
     <script>
-        //Initialize Select2 Elements
+        // Initialize Select2 Elements
         $(".select2").select2();
 
         // Initialize editor
         const easyMDE = new EasyMDE({
-            element: document.getElementById("content"),
+            element: document.getElementById("editor"),
             spellChecker: false,
             maxHeight: "500px",
             renderingConfig: {
                 codeSyntaxHighlighting: true,
             },
         });
-        const  currentBlog = [[${blogAdminDetail}]]
 
     </script>
+    <script th:src="@{/admin-assets/dist/js/admin-blog-js/detail-blog.js}"></script>
 </th:block>
 </body>
 

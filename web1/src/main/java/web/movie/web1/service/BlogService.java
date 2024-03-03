@@ -13,9 +13,11 @@ import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertBlogRequest;
 import web.movie.web1.repository.BlogRepository;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +33,11 @@ public class BlogService {
         return blogRepository.findAllByStatus(status);
     }
     public List<Blog> findAllBlogAdmin(){
-        return blogRepository.findAll();
+
+        return blogRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Blog::getCreateAt, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
     }
 
     public List<Blog> findBlogByUser( ) {
