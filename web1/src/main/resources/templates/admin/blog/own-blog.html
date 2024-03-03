@@ -40,10 +40,12 @@
 				<div class="row py-2">
 					<div class="col-12">
 						<button type="button" class="btn btn-primary">
-							<i class="fas fa-plus"></i> Viết bài
+							<a class="text-decoration-none text-reset" th:href="@{/admin/blogs/create-blog}">
+								<i  class="fas fa-plus"></i> Viết bài
+							</a>
 						</button>
 						<button type="button" class="btn btn-info">
-							<i class="fas fa-redo"></i> Refresh
+							<i th:href="@{/admin/blogs/owns-blog}" class="fas fa-redo"></i> Refresh
 						</button>
 					</div>
 				</div>
@@ -62,7 +64,7 @@
 									<tbody>
 									<tr th:each="blog : ${blogListByUser}">
 										<td>
-											<a href="#"><th:block th:text="${blog.title}"> </th:block></a>
+											<a th:href="@{/admin/blogs/{id}/detail-blog (id=${blog.id})}"><th:block th:text="${blog.title}"> </th:block></a>
 										</td>
 
 										<td th:if="${blog.status==true}">Công khai</td>

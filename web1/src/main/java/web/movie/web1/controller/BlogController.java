@@ -11,6 +11,7 @@ import web.movie.web1.entity.Blog;
 import web.movie.web1.service.BlogService;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin/blogs")
@@ -22,7 +23,6 @@ public class BlogController {
 
     @GetMapping
     public String viewHomePage(Model model){
-
        List<Blog> blogList= blogService.findAllBlogAdmin();
        model.addAttribute("blogList" , blogList);
         return "admin/blog/index";
@@ -38,7 +38,13 @@ public class BlogController {
         return "admin/blog/create";
     }
     @GetMapping("/{id}/detail-blog")
-    public String viewDetailBlogPage(@PathVariable Integer id){
+    public String viewDetailBlogPage(@PathVariable Integer id , Model model){
+        Blog blog = blogService.findAllBlogAdmin().stream()
+                .filter(blog1 -> Objects.equals(blog1.getId(), id))
+                .findFirst()
+                .orElse(null);
+
+        model.addAttribute("blogAdminDetail",blog);
         return "admin/blog/detail";
     }
 }

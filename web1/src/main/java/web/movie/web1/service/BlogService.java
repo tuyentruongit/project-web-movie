@@ -3,19 +3,14 @@ package web.movie.web1.service;
 import com.github.slugify.Slugify;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import web.movie.web1.entity.Blog;
-import web.movie.web1.entity.Review;
 import web.movie.web1.entity.User;
-import web.movie.web1.exception.BadRequestException;
 import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertBlogRequest;
-import web.movie.web1.model.request.UpsertReviewRequest;
 import web.movie.web1.repository.BlogRepository;
 
 import java.util.Date;
@@ -56,7 +51,7 @@ public class BlogService {
         Blog blog = Blog.builder()
                 .title(upsertBlogRequest.getTitle())
                 .description(upsertBlogRequest.getDescription())
-                .slug(slugify.slugify(upsertBlogRequest.getDescription()))
+                .slug(slugify.slugify(upsertBlogRequest.getTitle()))
                 .content(upsertBlogRequest.getContent())
                 .status(upsertBlogRequest.getStatus())
                 .createAt( new Date())
@@ -96,4 +91,5 @@ public class BlogService {
                 .orElseThrow(()-> new ResourceNotFound("Cannot find blog by Id : " + id));
         blogRepository.delete(blog);
     }
+
 }

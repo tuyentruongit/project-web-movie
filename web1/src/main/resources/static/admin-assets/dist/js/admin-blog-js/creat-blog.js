@@ -13,7 +13,7 @@ easyMDE.codemirror.on('change', function () {
 saveBlog.addEventListener('click',(e)=>{
     e.preventDefault();
     if (!$("#form-blog").valid()) return;
-    // if (contentBlogEl.value==="")return;
+    if (contentBlogEl.value==="")return;
     let status = false ;
     if (statusBlogEl.value==="1"){
         status = true;
