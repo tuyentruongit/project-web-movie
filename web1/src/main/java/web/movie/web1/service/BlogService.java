@@ -59,6 +59,7 @@ public class BlogService {
                 .description(upsertBlogRequest.getDescription())
                 .slug(slugify.slugify(upsertBlogRequest.getTitle()))
                 .content(upsertBlogRequest.getContent())
+                .thumbnail(upsertBlogRequest.getThumbnail())
                 .status(upsertBlogRequest.getStatus())
                 .createAt( new Date())
                 .updateAt( new Date())
@@ -86,6 +87,7 @@ public class BlogService {
         blog.setDescription(upsertBlogRequest.getDescription());
         blog.setStatus(upsertBlogRequest.getStatus());
         blog.setTitle(upsertBlogRequest.getTitle());
+        blog.setThumbnail(upsertBlogRequest.getThumbnail());
         blog.setUpdateAt(new Date());
         blog.setPublishedAt(publishedAt);
         blog.setSlug(slugify.slugify(upsertBlogRequest.getTitle()));

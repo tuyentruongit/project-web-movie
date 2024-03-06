@@ -13,6 +13,36 @@
 
     <link rel="stylesheet" href="/admin-assets/plugins/select2/css/select2.min.css" />
     <link rel="stylesheet" href="/admin-assets/dist/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.6.0/pagination.min.css"
+          integrity="sha512-K1k7jSn9RDKEcn/ugqVVvWYu0bcS3q1w6m/5pQSnrj0bCfIqF6Wk49lkmckSb4wglvTP9V17LtS0q0XxYccXbg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+      .modal-dialog {
+        max-width: 1000px;
+      }
+
+      .image-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+      }
+
+      .image-item {
+        height: 150px;
+        border: 2px solid #eee;
+      }
+
+      .image-item.selected {
+        border-color: red !important;
+        border-width: 4px !important;
+      }
+
+      .image-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
 
   </th:block>
 </head>
@@ -93,11 +123,12 @@
                       </option>
                     </select>
                   </div>
-                  <div class="">
+                  <div class="form-group">
                     <div class="thumbnail-preview-container mb-3">
                       <img src="" alt="" id="thumbnail" />
                     </div>
-                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-xl">
+                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                            data-target="#modal-image">
                       Chọn hình ảnh
                     </button>
                   </div>
@@ -110,25 +141,35 @@
     </div>
   </section>
 
-  <div class="modal fade" id="modal-xl" aria-hidden="true">
+  <div class="modal fade" id="modal-image" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Extra Large Modal</h4>
+          <h4 class="modal-title">Danh sách ảnh</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>One fine body…</p>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary">
-            Save changes
-          </button>
+          <div class="d-flex justify-content-between">
+            <div>
+              <button class="btn btn-success" id="btn-chose-image" disabled>Chọn ảnh</button>
+
+              <label for="avatar" class="btn btn-warning mb-0">Upload ảnh</label>
+              <input type="file" id="avatar" class="d-none">
+            </div>
+            <div>
+              <button class="btn btn-danger" id="btn-delete-image" disabled>Xóa ảnh</button>
+            </div>
+          </div>
+          <!-- Hiển thị danh sách ảnh -->
+          <div class="image-container mt-4 mb-4">
+          </div>
+
+          <!-- Hiển thị phần phân trang -->
+          <div id="image-pagination" class="pagination-container d-flex justify-content-center">
+
+          </div>
         </div>
       </div>
     </div>
@@ -150,9 +191,14 @@
   <<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/additional-methods.min.js"
            integrity="sha512-TiQST7x/0aMjgVTcep29gi+q5Lk5gVTUPE9XgN0g96rwtjEjLpod4mlBRKWHeBcvGBAEvJBmfDqh2hfMMmg+5A=="
            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.6.0/pagination.min.js"
+          integrity="sha512-GzbaI5EsNzdEUq6/2XLYpr1y9CUZRIVsUeWTAFgULtQa5jZ3Nug8i0nZKM6jp9NffBCZhymPPQFcF0DK+JkRpw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script th:src="@{/admin-assets/dist/js/notify-admin.js}"></script>
 
-  <script>
+  <script th:inline="javascript">
+    let imageList = [[${image}]];
+    console.log(imageList);
     // Initialize Select2 Elements
     $(".select2").select2();
 
@@ -165,6 +211,7 @@
         codeSyntaxHighlighting: true,
       },
     });
+
   </script>
   <script th:src="@{/admin-assets/dist/js/admin-blog-js/create-blog.js}"></script>
 </th:block>

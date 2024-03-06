@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import web.movie.web1.entity.Blog;
 import web.movie.web1.service.BlogService;
+import web.movie.web1.service.ImageService;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,10 +18,8 @@ import java.util.Objects;
 @RequestMapping("/admin/blogs")
 @RequiredArgsConstructor
 public class BlogController {
-
     private final BlogService blogService;
-    private final HttpSession session;
-
+    private  final ImageService imageService;
     @GetMapping
     public String viewHomePage(Model model){
        List<Blog> blogList= blogService.findAllBlogAdmin();
@@ -34,7 +33,8 @@ public class BlogController {
         return "admin/blog/own-blog";
     }
     @GetMapping("/create-blog")
-    public String viewCreateBlogPage(){
+    public String viewCreateBlogPage(Model model){
+        model.addAttribute("image", imageService.getAllImageByCurrentUser());
         return "admin/blog/create";
     }
     @GetMapping("/{id}/detail-blog")
@@ -43,6 +43,7 @@ public class BlogController {
                 .filter(blog1 -> Objects.equals(blog1.getId(), id))
                 .findFirst()
                 .orElse(null);
+        model.addAttribute("image", imageService.getAllImageByCurrentUser());
 
         model.addAttribute("blogAdminDetail",blog);
         return "admin/blog/detail";

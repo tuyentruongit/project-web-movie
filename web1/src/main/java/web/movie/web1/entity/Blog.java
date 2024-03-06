@@ -28,7 +28,7 @@ public class Blog {
 
 
 
-    String thumBail;
+    String thumbnail;
     Boolean status;
 
 

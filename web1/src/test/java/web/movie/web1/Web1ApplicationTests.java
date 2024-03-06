@@ -5,7 +5,7 @@ import com.github.slugify.Slugify;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import web.movie.web1.entity.*;
 import web.movie.web1.model.Role;
@@ -48,7 +48,8 @@ class Web1ApplicationTests {
 //             random 1-3 thể loại
             List<Genre > rdgenreList = new ArrayList<>();
             for (int j = 0; j < random.nextInt(3)+1; j++) {
-             Genre genre = genreList.get(random.nextInt(genreList.size()));
+                int number = random.nextInt(0,genreList.size());
+             Genre genre = genreList.get(number);
               if (!rdgenreList.contains(genre)){
                   rdgenreList.add(genre);
               }
@@ -140,7 +141,7 @@ class Web1ApplicationTests {
                     .slug(slugify.slugify(title))
                     .description(faker.lorem().paragraph())
                     .content(faker.lorem().paragraph(30))
-                    .thumBail(faker.company().logo())
+                    .thumbnail(faker.company().logo())
                     .status(status)
                     .createAt(createAt)
                     .updateAt(createAt)
