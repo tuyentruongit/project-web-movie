@@ -25,6 +25,7 @@ const renderDataMovie = ()=>{
     console.log(genreIds);
     $('#genre').val(genreIds);
     $('#genre').trigger('change');
+    posterMovie.src = movieCurrent.poster;
 
 
 
