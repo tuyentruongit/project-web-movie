@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Blog</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Tạo bài viết
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row py-2">
+                <div class="col-6">
+                    <a href="/admin/movies" class="btn btn-default">
+                        <i class="fas fa-chevron-left"></i> Quay lại
+                    </a>
+                    <button type="button" class="btn btn-info px-4" id="btn-create">
+                        Lưu
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="form-create-movie">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Tên phim</label>
+                                            <input name="title" type="text" class="form-control" id="title"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Mô tả ngắn</label>
+                                            <textarea name="description" id="description" class="form-control" rows="6"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Đạo diễn</label>
+                                            <div class="select2-purple">
+                                                <select name="director" class="select2 form-control" multiple="multiple" id="director">
+                                                    <option th:each="director : ${directors}" th:value="${director.id}"
+                                                            th:text="${director.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Diễn viên</label>
+                                            <div class="select2-purple">
+                                                <select name="actor" class="select2 form-control" multiple="multiple" id="actor">
+                                                    <option th:each="actor : ${actors}" th:value="${actor.id}"
+                                                            th:text="${actor.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Thể loại</label>
+                                            <div class="select2-purple">
+                                                <select name="genre" class="select2 form-control" multiple="multiple" id="genre">
+                                                    <option th:each="genre : ${genres}" th:value="${genre.id}"
+                                                            th:text="${genre.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Năm phát hành</label>
+                                            <input name="" type="text" class="form-control" id="releaseYear"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Trạng thái</label>
+                                            <select id="status" class="form-control">
+                                                <option value="false">
+                                                    Nháp
+                                                </option>
+                                                <option value="true">
+                                                    Công khai
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Loại phim</label>
+                                            <select id="type" class="form-control">
+                                                <option th:each="type : ${movieTypes}" th:value="${type}"
+                                                        th:text="${type.getValue()}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="thumbnail-preview-container mb-3">
+                                                <img src="" alt="" id="thumbnail" />
+                                            </div>
+                                            <button name="thumbnail" type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                    data-target="#modal-image">
+                                                Chọn hình ảnh
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modal-image" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Danh sách ảnh</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button class="btn btn-success" id="btn-chose-image" disabled>Chọn ảnh</button>
+
+                            <label for="avatar" class="btn btn-warning mb-0">Upload ảnh</label>
+                            <input type="file" id="avatar" class="d-none">
+                        </div>
+                        <div>
+                            <button class="btn btn-danger" id="btn-delete-image" disabled>Xóa ảnh</button>
+                        </div>
+                    </div>
+                    <!-- Hiển thị danh sách ảnh -->
+                    <div class="image-container mt-4 mb-4">
+                    </div>
+
+                    <!-- Hiển thị phần phân trang -->
+                    <div id="image-pagination" class="pagination-container d-flex justify-content-center">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/admin-assets/dist/js/admin-movie-js/movie-admin-create.js}"></script>
+
+</body>
+</html>

@@ -39,7 +39,7 @@ saveBlog.addEventListener('click', (e) => {
     }
     const dataBlog = {
         title: titleEl.value,
-        description: titleEl.value,
+        description: descriptionEl.value,
         content: contentEl.value,
         thumbnail : thumbnailPreview.getAttribute("src"),
         status: status
@@ -151,7 +151,7 @@ const choseImage = (el) =>{
 btnChoseImage.addEventListener('click',()=>{
     const selectedEl = document.querySelector(".image-item.selected");
     if (!selectedEl){
-        toastr.error("Vui lòng chọn ảnh cần xóa ");
+        toastr.error("Vui lòng chọn ảnh ");
     }
     const urlImage= selectedEl.querySelector("img").getAttribute("src");
     // thumbnailPreview.setAttribute("src",urlImage);
@@ -168,6 +168,7 @@ btnDeleteImage.addEventListener('click',()=>{
     const imageId= selectedEl.getAttribute("data-id");
     axios.delete(`/api/admin/images/${imageId}`)
         .then((res)=>{
+
            imageList = imageList.filter(image => image.id!==imageId);
            renderImage(imageList)
             renderPagination(imageList);
@@ -188,7 +189,6 @@ const  renderPagination = (images) =>{
         pageRange: null,
         showPageNumbers: true,
         callback: function(data, pagination) {
-        // template method of yourself
         renderImage(data);
     }
     })

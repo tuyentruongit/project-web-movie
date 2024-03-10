@@ -1,6 +1,8 @@
 package web.movie.web1.service;
 
 
+import com.github.slugify.Slugify;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -8,28 +10,35 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import web.movie.web1.entity.*;
+import web.movie.web1.exception.ResourceNotFound;
+import web.movie.web1.model.request.UpsertMovieRequest;
+import web.movie.web1.repository.ActorRepository;
+import web.movie.web1.repository.DirectorRepository;
+import web.movie.web1.repository.GenreRepository;
 import web.movie.web1.repository.MovieRepository;
-import web.movie.web1.entity.Movie;
 import web.movie.web1.model.MovieType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class MovieService  {
     private final MovieRepository movieRepository;
+    private final ActorRepository actorRepository;
+    private final DirectorRepository directorRepository;
+    private final GenreRepository genreRepository;
+
+
 
     public List<Movie> getAllMovie(){
         return movieRepository.findMovieByStatus(true);
     }
 
-
-
-
+    public List<Movie> getAllMovieForAdmin(){
+        return movieRepository.findAll();
+    }
     public List<Movie> getSingleMovie (){
-
-
         PageRequest pageRequest = PageRequest.of(0,4,Sort.by("RelishYear").descending());
         Page<Movie> moviePage = movieRepository.findByMovieTypeAndStatus(MovieType.PHIM_LE,true,pageRequest);
         return moviePage.getContent();
@@ -112,4 +121,79 @@ public class MovieService  {
         return movieRepository.findByMovieTypeAndStatus(movieType, status, pageRequest);
     }
 
+    public Movie createMovie(UpsertMovieRequest upsertMovieRequest) {
+        // kiểm tra xem tên phim đó đã có hay chưa
+        List<Movie> list = movieRepository.findAll();
+        list.forEach(movie -> {
+            if (movie.getTitle().equals(upsertMovieRequest.getTitle())){
+                throw new RuntimeException("Tên Phim này đã có ");
+            }
+        });
+        Slugify slugify = Slugify.builder().build();
+        Boolean status = upsertMovieRequest.getStatus();
+        Date publishedAt = null;
+        if (status){
+            publishedAt=new Date();
+        }
+        List<Actor> actorList = actorRepository.findAllById(upsertMovieRequest.getActorIds());
+        List<Director> directorList = directorRepository.findAllById(upsertMovieRequest.getDirectorIds());
+        List<Genre> genreList = genreRepository.findAllById(upsertMovieRequest.getGenreIds());
+
+        Movie movie = Movie.builder()
+                .title(upsertMovieRequest.getTitle())
+                .description(upsertMovieRequest.getDescription())
+                .status(status)
+                .slug(slugify.slugify(upsertMovieRequest.getTitle()))
+                .movieType(upsertMovieRequest.getType())
+                .relishYear(upsertMovieRequest.getReleaseYear())
+                .poster(upsertMovieRequest.getPoster())
+                .actorList(actorList)
+                .directorList(directorList)
+                .genreList(genreList)
+                .createAt(new Date())
+                .updateAt(null)
+                .publishedAt(publishedAt)
+                .build();
+       return movieRepository.save(movie);
+    }
+
+    public Movie updateMovie(Integer id, UpsertMovieRequest upsertMovieRequest) {
+        // tìm kiếm phim theo id
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFound("Cannot find Movie by Id : " + id));
+        Slugify slugify = Slugify.builder().build();
+        Boolean status = upsertMovieRequest.getStatus();
+        Date publishedAt = null;
+        if (status){
+            publishedAt=new Date();
+        }
+        List<Actor> actorList = actorRepository.findAllById(upsertMovieRequest.getActorIds());
+        List<Director> directorList = directorRepository.findAllById(upsertMovieRequest.getDirectorIds());
+        List<Genre> genreList = genreRepository.findAllById(upsertMovieRequest.getGenreIds());
+
+        movie.setTitle(upsertMovieRequest.getTitle());
+        movie.setDescription(upsertMovieRequest.getDescription());
+        movie.setSlug(slugify.slugify(upsertMovieRequest.getTitle()));
+        movie.setStatus(status);
+        movie.setMovieType(upsertMovieRequest.getType());
+        movie.setRelishYear(upsertMovieRequest.getReleaseYear());
+        movie.setPoster(upsertMovieRequest.getPoster());
+        movie.setPublishedAt(publishedAt);
+        movie.setDirectorList(directorList);
+        movie.setActorList(actorList);
+        movie.setGenreList(genreList);
+
+        return movieRepository.save(movie);
+
+    }
+
+    public void deleteMovie(Integer id) {
+       Movie movie = movieRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Cannot find by id :" + id));
+       movieRepository.delete(movie);
+
+    }
+
+    public Movie findMovieById(Integer id) {
+        return movieRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Cannot find by id :" + id));
+    }
 }
