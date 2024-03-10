@@ -15,7 +15,7 @@ public class UpsertMovieRequest {
     String title;
     String description;
     Boolean status;
-    MovieType type;
+    MovieType movieType;
     Integer releaseYear;
     String poster;
     List<Integer> directorIds;

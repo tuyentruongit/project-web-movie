@@ -18,14 +18,15 @@ const renderDataMovie = ()=>{
     $('#director').val(directorIds);
     $('#director').trigger('change');
     let actorIds = movieCurrent.actorList.map(actor => actor.id);
-    console.log(actorIds);
+
     $('#actor').val(actorIds);
     $('#actor').trigger('change');
     let genreIds = movieCurrent.genreList.map(genre => genre.id);
-    console.log(genreIds);
+
     $('#genre').val(genreIds);
     $('#genre').trigger('change');
     posterMovie.src = movieCurrent.poster;
+    movieTypeEl.value =movieCurrent.movieType;
 
 
 

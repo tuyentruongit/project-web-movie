@@ -158,7 +158,7 @@
                                             <label>Loại phim</label>
                                             <select id="type"  class="form-control">
                                                 <option  th:each="type : ${movieTypes}" th:value="${type}"
-                                                         th:text="${type.getValue()}"></option>
+                                                         th:text="${type.getValue()}"   th:selected="${type == movie.movieType}"></option>
                                             </select>
                                         </div>
                                         <div class="form-group">

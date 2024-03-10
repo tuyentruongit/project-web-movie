@@ -144,7 +144,7 @@ public class MovieService  {
                 .description(upsertMovieRequest.getDescription())
                 .status(status)
                 .slug(slugify.slugify(upsertMovieRequest.getTitle()))
-                .movieType(upsertMovieRequest.getType())
+                .movieType(upsertMovieRequest.getMovieType())
                 .relishYear(upsertMovieRequest.getReleaseYear())
                 .poster(upsertMovieRequest.getPoster())
                 .actorList(actorList)
@@ -175,7 +175,7 @@ public class MovieService  {
         movie.setDescription(upsertMovieRequest.getDescription());
         movie.setSlug(slugify.slugify(upsertMovieRequest.getTitle()));
         movie.setStatus(status);
-        movie.setMovieType(upsertMovieRequest.getType());
+        movie.setMovieType(upsertMovieRequest.getMovieType());
         movie.setRelishYear(upsertMovieRequest.getReleaseYear());
         movie.setPoster(upsertMovieRequest.getPoster());
         movie.setPublishedAt(publishedAt);
