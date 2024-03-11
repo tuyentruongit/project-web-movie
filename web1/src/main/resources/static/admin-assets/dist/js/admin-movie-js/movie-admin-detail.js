@@ -135,6 +135,7 @@ deleteMovie.addEventListener('click', () => {
         })
         .catch((err) => {
             toastr.error(err.response.data.message);
+            console.log(err);
         })
 
 });

@@ -7,4 +7,5 @@ import web.movie.web1.entity.Review;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review,Integer> {
+    List<Review> findReviewByMovie_Id(Integer id);
 }

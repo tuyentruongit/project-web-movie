@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import web.movie.web1.entity.*;
 import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertMovieRequest;
-import web.movie.web1.repository.ActorRepository;
-import web.movie.web1.repository.DirectorRepository;
-import web.movie.web1.repository.GenreRepository;
-import web.movie.web1.repository.MovieRepository;
+import web.movie.web1.repository.*;
 import web.movie.web1.model.MovieType;
 
 import java.util.*;
@@ -28,6 +25,7 @@ public class MovieService  {
     private final ActorRepository actorRepository;
     private final DirectorRepository directorRepository;
     private final GenreRepository genreRepository;
+    private final ReviewRepository reviewRepository;
 
 
 
@@ -189,6 +187,8 @@ public class MovieService  {
 
     public void deleteMovie(Integer id) {
        Movie movie = movieRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Cannot find by id :" + id));
+       List<Review> reviewList = reviewRepository.findReviewByMovie_Id(id);
+       reviewRepository.deleteAll(reviewList);
        movieRepository.delete(movie);
 
     }
