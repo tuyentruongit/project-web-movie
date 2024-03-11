@@ -69,7 +69,7 @@
                                             <a th:href="@{/admin/movies/{id}/detail (id=${movie.id})}"
                                                th:text="${movie.title}">Bee</a>
                                         </td>
-                                        <td th:text="${movie.movieType.getValue()}">Loại phim</td>
+                                        <td th:text="${movie.movieType.value}">Loại phim</td>
                                         <td th:text="${movie.relishYear}">Năm phát hành</td>
                                         <td>
                                         <span class="badge bg-info mr-1" th:each="genre : ${movie.getGenreList()}"

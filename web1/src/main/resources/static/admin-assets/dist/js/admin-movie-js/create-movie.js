@@ -25,7 +25,7 @@ btnSave.addEventListener('click' ,(e)=>{
     const data = {
         title : titleEl.value,
         description : descriptionEl.value,
-        type : movieTypeEl.value,
+        movieType : movieTypeEl.value,
         releaseYear : relishedYearEl.value,
         status : status,
         directorIds : directorList,
@@ -37,9 +37,6 @@ btnSave.addEventListener('click' ,(e)=>{
     axios.post("/api/admin/movies",data)
         .then((res)=>{
             toastr.success("Lưu thành công ");
-            setTimeout(() => {
-                window.location.href = "/admin/movies";
-            }, 1500);
         })
         .catch(()=>{
             toastr.error("Lưu thất bại ");
