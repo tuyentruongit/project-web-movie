@@ -26,7 +26,7 @@ th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{},~{::#mai
                             <img class="poster-movie-detail rounded overflow-hidden w-100" th:src="${movieDetail.poster}"
                                  alt="">
                         </div>
-                        <div class="col-7">
+                        <div class="col-8">
                             <div class="row">
                                 <h4 th:text="${movieDetail.title}"></h4>
                             </div>
@@ -92,11 +92,20 @@ th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{},~{::#mai
                             <div class="row ">
                                 <div class="d-flex justify-content-between">
                                     <div class="play-movie pt-2 d-flex align-item-center">
-                                        <a class="text-decoration-none text-reset px-4 py-1" href="">
-                                            <i class="fa-solid fa-play ml-2"></i>
-                                            <span>Xem Phim</span>
-                                        </a>
+                                        <th:block th:if="${movieDetail.movieType.value == 'Phim Bộ' && episodes.size() > 0}">
+                                            <a class="text-decoration-none text-reset px-4 py-1" th:href="@{/xem-phim/{id}/{slug} (id=${movieDetail.id}, slug=${movieDetail.slug}, tap=${episodes.get(0).displayOder})}">
+                                                <i class="fa-solid fa-play ml-2"></i>
+                                                <span>Xem Phim</span>
+                                            </a>
+                                        </th:block>
+                                        <th:block th:if="${(movieDetail.movieType.value == 'Phim Lẻ'||movieDetail.movieType.value == 'Phim Chiếu Rạp') && episodes.size() > 0}">
+                                            <a class="text-decoration-none text-reset px-4 py-1" th:href="@{/xem-phim/{id}/{slug} (id=${movieDetail.id},slug=${movieDetail.slug},tap='Full')}">
+                                                <i class="fa-solid fa-play ml-2"></i>
+                                                <span>Xem Phim</span>
+                                            </a>
+                                        </th:block>
                                     </div>
+
 
                                     <div class="share">
                                         <span>Chia sẻ :</span>
@@ -111,6 +120,14 @@ th:replace="~{web/layout/layout-main.html :: layout-main(~{::title},~{},~{::#mai
                                     </span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mt-4" th:if="${movieDetail.movieType.value == 'Phim Bộ' && episodes.size() > 0}">
+                                <h5 class="mb-3">Tập phim</h5>
+                                <a class="btn btn-dark me-2"
+                                   th:each="episode : ${episodes}"
+                                   th:text="${episode.title}"
+                                   th:href="@{/xem-phim/{id}/{slug} (id=${movieDetail.id}, slug=${movieDetail.slug}, tap=${episode.displayOder})}">
+                                    >Tập 1</a>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,9 @@ import web.movie.web1.entity.Movie;
 import web.movie.web1.model.MovieType;
 import web.movie.web1.repository.ActorRepository;
 import web.movie.web1.repository.DirectorRepository;
+import web.movie.web1.repository.EpisodeRepository;
 import web.movie.web1.repository.GenreRepository;
+import web.movie.web1.service.EpisodeService;
 import web.movie.web1.service.ImageService;
 import web.movie.web1.service.MovieService;
 
@@ -27,6 +29,7 @@ public class MovieController {
     private final ActorRepository actorRepository;
     private final GenreRepository genreRepository;
     private  final ImageService imageService;
+    private final EpisodeService episodeService;
     @GetMapping
     public String viewHomePage(Model model){
         List<Movie> movieList = movieService.getAllMovieForAdmin();
@@ -52,6 +55,7 @@ public class MovieController {
         model.addAttribute("genres", genreRepository.findAll());
         model.addAttribute("movieTypes", MovieType.values());
         model.addAttribute("images", imageService.getAllImageByCurrentUser());
+        model.addAttribute("episodeList",episodeService.getEpisodeOfMovie(id));
 
 
         return "admin/movie/detail";

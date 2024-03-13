@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.movie.web1.entity.Blog;
+import web.movie.web1.entity.Episode;
 import web.movie.web1.entity.Movie;
 import web.movie.web1.entity.Review;
 import web.movie.web1.model.MovieType;
 import web.movie.web1.service.BlogService;
+import web.movie.web1.service.EpisodeService;
 import web.movie.web1.service.MovieService;
 import web.movie.web1.service.ReviewService;
 
@@ -26,6 +28,8 @@ public class WebController {
     private BlogService blogService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private EpisodeService episodeService;
 
     @GetMapping("/")
     public String getHome(Model model){
@@ -89,12 +93,38 @@ public class WebController {
                 .orElse(null);
 
         List<Review> reviewList = reviewService.getReviewById(id);
+        List<Episode> episodes = episodeService.getEpisodeOfMovie(id, true);
+        model.addAttribute("episodes", episodes);
         model.addAttribute("reviewList" , reviewList);
         model.addAttribute("movieDetail",movie);
         model.addAttribute("featuredMovie" ,movieService.getFeaturedMovie());
         model.addAttribute("top3RatingMovie" , movieService.top3RatingMovie());
 
         return "web/movies-detail";
+    }
+    @GetMapping("/xem-phim/{id}/{slug}")
+    public String getXemPhim(@PathVariable Integer id,
+                             @PathVariable String slug,
+                             @RequestParam String tap,
+                             Model model){
+        Movie movie = movieService.getAllMovie().stream()
+                .filter(s-> Objects.equals(s.getId(), id))
+                .filter(sl-> slug.equals(sl.getSlug()))
+                .findFirst()
+                .orElse(null);
+
+        Episode currentEpisode = episodeService.getEpisode(id,tap,true);
+
+        List<Review> reviewList = reviewService.getReviewById(id);
+        List<Episode> episodes = episodeService.getEpisodeOfMovie(id, true);
+        model.addAttribute("episodes", episodes);
+        model.addAttribute("currentEpisode", currentEpisode);
+        model.addAttribute("reviewList" , reviewList);
+        model.addAttribute("movieDetail",movie);
+        model.addAttribute("featuredMovie" ,movieService.getFeaturedMovie());
+        model.addAttribute("top3RatingMovie" , movieService.top3RatingMovie());
+
+        return "web/xem-phim";
     }
 
 

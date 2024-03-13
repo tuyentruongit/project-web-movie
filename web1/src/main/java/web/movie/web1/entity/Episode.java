@@ -26,9 +26,13 @@ public class Episode {
     Integer duration;
 
 
-    Date birthday;
+    Date publishAt;
     Date createdAt;
     Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    Movie movie;
 
 
 

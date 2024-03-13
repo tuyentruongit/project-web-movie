@@ -32,6 +32,8 @@ class Web1ApplicationTests {
     private ReviewRepository reviewRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private EpisodeRepository episodeRepository;
 
 
 
@@ -239,6 +241,44 @@ class Web1ApplicationTests {
         );
 
     }
+
+    @Test
+    void save_episode(){
+        Faker faker = new Faker();
+        List<Movie> movieList = movieRepository.findAll();
+        Random random = new Random();
+        movieList.forEach(movie -> {
+            if (movie.getMovieType().getValue().equals("Phim Bộ")){
+                for (int i = 0; i < random.nextInt(5)+5 ; i++) {
+                    Episode episode = Episode.builder()
+                            .title("Tập "+(i+1))
+                            .displayOder(i+1)
+                            .status(true)
+                            .createdAt(new Date())
+                            .publishAt(new Date())
+                            .updatedAt(new Date())
+                            .movie(movie)
+                            .build();
+                    episodeRepository.save(episode);
+                }
+            }else {
+                Episode episode = Episode.builder()
+                        .title("Full")
+                        .displayOder(1)
+                        .status(true)
+                        .createdAt(new Date())
+                        .publishAt(new Date())
+                        .updatedAt(new Date())
+                        .movie(movie)
+                        .build();
+
+                episodeRepository.save(episode);
+            }
+        });
+    }
+
+
+
 
 
 
