@@ -8,15 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import web.movie.web1.entity.Blog;
+import web.movie.web1.entity.Movie;
 import web.movie.web1.entity.User;
 import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertBlogRequest;
 import web.movie.web1.repository.BlogRepository;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +44,6 @@ public class BlogService {
     }
     public Blog createBlog(UpsertBlogRequest upsertBlogRequest) {
         User user = (User) session.getAttribute("currentUser");
-        System.out.println(user);
         Slugify slugify = Slugify.builder().build();
         Boolean status = upsertBlogRequest.getStatus();
         Date publishedAt = null ;
@@ -99,5 +96,24 @@ public class BlogService {
                 .orElseThrow(()-> new ResourceNotFound("Cannot find blog by Id : " + id));
         blogRepository.delete(blog);
     }
+    public List<Blog> findBlogNew() {
+        Date currentDate = new Date();
+        List<Blog> blogListNew = new ArrayList<>();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(currentDate);
+        blogRepository.findAll().forEach(blog -> {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(blog.getCreateAt());
+            if (calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
+                    calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)) {
+                blogListNew.add(blog);
+            }
+        });
+        return blogListNew;
 
+    }
+
+    public List<Blog> getAllBlog() {
+       return blogRepository.findAll();
+    }
 }

@@ -16,6 +16,7 @@ import web.movie.web1.model.request.UpsertMovieRequest;
 import web.movie.web1.repository.*;
 import web.movie.web1.model.MovieType;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -195,5 +196,22 @@ public class MovieService  {
 
     public Movie findMovieById(Integer id) {
         return movieRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Cannot find by id :" + id));
+    }
+
+    public List<Movie> findMovieNew() {
+        Date currentDate = new Date();
+        List<Movie> movieListNew = new ArrayList<>();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(currentDate);
+        movieRepository.findAll().forEach(movie -> {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(movie.getCreateAt());
+            if (calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
+                    calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)) {
+               movieListNew.add(movie);
+            }
+        });
+        return movieListNew;
+
     }
 }

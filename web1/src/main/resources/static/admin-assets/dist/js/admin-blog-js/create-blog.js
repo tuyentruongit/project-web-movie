@@ -4,12 +4,7 @@ let contentBlogEl = document.getElementById("content");
 const  descriptionBlogEl = document.getElementById("description");
 const saveBlog= document.getElementById("save");
 const statusBlogEl = document.getElementById("status");
-const thumbnailPreview = document.getElementById("thumbnail")
 // quản lý ảnh
-const imageContainer = document.querySelector(".image-container");
-const btnChoseImage = document.getElementById("btn-chose-image");
-const btnDeleteImage = document.getElementById("btn-delete-image");
-const inputImage = document.getElementById("avatar");
 easyMDE.codemirror.on('change', function () {
     contentBlogEl.value = easyMDE.value();
 });

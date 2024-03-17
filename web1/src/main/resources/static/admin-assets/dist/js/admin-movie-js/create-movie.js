@@ -33,7 +33,6 @@ btnSave.addEventListener('click' ,(e)=>{
         genreIds : genreList,
         poster : posterMovie.getAttribute("src")
     }
-    console.log(data);
     axios.post("/api/admin/movies",data)
         .then((res)=>{
             toastr.success("Lưu thành công ");
