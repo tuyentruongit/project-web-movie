@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -24,8 +25,8 @@ public class Review {
     String comment;
 
     Integer rating;
-    Date createdAt;
-    Date updatedAt;
+    LocalDate createdAt;
+    LocalDate updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,12 +38,12 @@ public class Review {
 
     @PrePersist
     void prePersist(){
-        createdAt = new Date();
-        updatedAt = new Date();
+        createdAt = LocalDate.now();
+        updatedAt = LocalDate.now();
     }
     @PreUpdate
     void preUpdate(){
-        updatedAt = new Date();
+        updatedAt = LocalDate.now();
     }
 
 

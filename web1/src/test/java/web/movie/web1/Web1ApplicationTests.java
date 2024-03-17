@@ -12,6 +12,9 @@ import web.movie.web1.model.Role;
 import web.movie.web1.repository.*;
 import web.movie.web1.model.MovieType;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @SpringBootTest
@@ -74,8 +77,11 @@ class Web1ApplicationTests {
             }
             String title = faker.book().title();
             Boolean status = faker.bool().bool();
-            Date createAt = faker.date().birthday();
-            Date publishAt = null;
+
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate publishAt = null;
             if (status){
                 publishAt = createAt;
             }
@@ -108,7 +114,9 @@ class Web1ApplicationTests {
         Faker faker = new Faker();
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            Date createAt = faker.date().birthday();
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
             User user = User.builder()
                     .name(faker.name().name())
                     .email(faker.internet().emailAddress())
@@ -133,8 +141,10 @@ class Web1ApplicationTests {
             User user = listAdmin.get(index);
             String title = faker.book().title();
             Boolean status = faker.bool().bool();
-            Date createAt = faker.date().birthday();
-            Date publishAt = null;
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate publishAt = null;
             if (status){
                 publishAt = createAt;
             }
@@ -158,13 +168,19 @@ class Web1ApplicationTests {
     void createActor(){
         Faker faker = new Faker();
         for (int i = 0; i < 50; i++) {
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            Date date1 = faker.date().birthday();
+            Instant instant1 = date1.toInstant();
+            LocalDate birthday = instant1.atZone(ZoneId.systemDefault()).toLocalDate();
             Actor actor = Actor.builder()
                     .name(faker.name().name())
                     .avatar(faker.company().logo())
                     .description(faker.lorem().paragraph())
-                    .birthday(faker.date().birthday())
-                    .createdAt(faker.date().birthday())
-                    .createdAt(faker.date().birthday())
+                    .birthday(birthday)
+                    .createdAt(createAt)
+                    .updatedAt(createAt)
                     .build();
             actorRepository.save(actor);
         }
@@ -175,13 +191,19 @@ class Web1ApplicationTests {
         Faker faker = new Faker();
 
         for (int i = 0; i < 20; i++) {
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            Date date1 = faker.date().birthday();
+            Instant instant1 = date1.toInstant();
+            LocalDate birthday = instant1.atZone(ZoneId.systemDefault()).toLocalDate();
             Director director = Director.builder()
                     .name(faker.name().name())
                     .avatar(faker.company().logo())
                     .description(faker.lorem().paragraph())
-                    .birthday(faker.date().birthday())
-                    .createdAt(faker.date().birthday())
-                    .createdAt(faker.date().birthday())
+                    .birthday(birthday)
+                    .createdAt(createAt)
+                    .updatedAt(createAt)
                     .build();
 
             directorRepository.save(director);
@@ -215,7 +237,9 @@ class Web1ApplicationTests {
             User user = userList.get(random.nextInt(userList.size()));
             int indexMovie = random.nextInt(movieList.size());
             Movie movie = movieList.get(indexMovie);
-            Date createAt = faker.date().birthday();
+            Date date = faker.date().birthday();
+            Instant instant = date.toInstant();
+            LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
             Review review = Review.builder()
                     .comment(faker.lorem().paragraph())
                     .rating(faker.number().randomDigit())
@@ -250,13 +274,16 @@ class Web1ApplicationTests {
         movieList.forEach(movie -> {
             if (movie.getMovieType().getValue().equals("Phim Bộ")){
                 for (int i = 0; i < random.nextInt(5)+5 ; i++) {
+                    Date date = faker.date().birthday();
+                    Instant instant = date.toInstant();
+                    LocalDate createAt = instant.atZone(ZoneId.systemDefault()).toLocalDate();
                     Episode episode = Episode.builder()
                             .title("Tập "+(i+1))
                             .displayOder(i+1)
                             .status(true)
-                            .createdAt(new Date())
-                            .publishAt(new Date())
-                            .updatedAt(new Date())
+                            .createdAt(LocalDate.now())
+                            .publishAt(LocalDate.now())
+                            .updatedAt(LocalDate.now())
                             .movie(movie)
                             .build();
                     episodeRepository.save(episode);
@@ -266,9 +293,9 @@ class Web1ApplicationTests {
                         .title("Full")
                         .displayOder(1)
                         .status(true)
-                        .createdAt(new Date())
-                        .publishAt(new Date())
-                        .updatedAt(new Date())
+                        .createdAt(LocalDate.now())
+                        .publishAt(LocalDate.now())
+                        .updatedAt(LocalDate.now())
                         .movie(movie)
                         .build();
 

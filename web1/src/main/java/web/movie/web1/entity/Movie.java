@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import web.movie.web1.model.MovieType;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -39,9 +40,9 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     MovieType movieType;
     Boolean status;
-    Date createAt;
-    Date updateAt;
-    Date publishedAt;
+    LocalDate createAt;
+    LocalDate updateAt;
+    LocalDate publishedAt;
 
 
     @ManyToMany

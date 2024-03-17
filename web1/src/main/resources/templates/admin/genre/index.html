@@ -175,9 +175,9 @@
 
         btnSaveGenre.addEventListener('click',()=>{
 
-            // if (!$("#genre").valid()){
-            //     return;
-            // }
+            if (!$("#genre").valid()){
+                return;
+            }
             if (idGenre==null){
                 functionCreateGenre();
             }else {
@@ -270,30 +270,30 @@
                 })
         }
 
-        //
-        // $("#genre").validate({
-        //     rules: {
-        //         nameGenre: {
-        //             nameGenre: true,
-        //         },
-        //     },
-        //     messages: {
-        //         nameGenre: {
-        //             required: "Vui lòng nhập tên thể loại",
-        //         }
-        //     },
-        //     errorElement: 'span',
-        //     errorPlacement: function (error, element) {
-        //         error.addClass('invalid-feedback');
-        //         element.closest('.form-group').append(error);
-        //     },
-        //     highlight: function (element, errorClass, validClass) {
-        //         $(element).addClass('is-invalid');
-        //     },
-        //     unhighlight: function (element, errorClass, validClass) {
-        //         $(element).removeClass('is-invalid');
-        //     }
-        // });
+
+        $("#genre").validate({
+            rules: {
+                nameGenre: {
+                    required: true,
+                },
+            },
+            messages: {
+                nameGenre: {
+                    required: "Vui lòng nhập tên thể loại",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
 
     </script>
 <!--    <script th:src="@{/admin-assets/dist/js/admin-genre/index-admin-genre.js}"></script>-->

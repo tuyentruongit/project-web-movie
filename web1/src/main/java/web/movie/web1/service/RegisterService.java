@@ -9,6 +9,7 @@ import web.movie.web1.model.Role;
 import web.movie.web1.model.request.RegisterRequest;
 import web.movie.web1.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class RegisterService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
                 .avatar(avatarUrl)
-                .createAt(new Date())
-                .updateAt(new Date())
+                .createAt(LocalDate.now())
+                .updateAt(LocalDate.now())
                 .build();
         userRepository.save(user);
     }

@@ -39,6 +39,7 @@ public class DashboardController {
         model.addAttribute("movieAll" ,movieAll);
         model.addAttribute("blogAll" ,blogAll);
         model.addAttribute("userAll" ,userAll);
+
         return "admin/dashboard/index";
     }
 

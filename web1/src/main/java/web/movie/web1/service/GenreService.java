@@ -4,6 +4,7 @@ import com.github.slugify.Slugify;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import web.movie.web1.entity.Genre;
+import web.movie.web1.entity.Movie;
 import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertGenreRequest;
 import web.movie.web1.repository.GenreRepository;
@@ -49,6 +50,8 @@ public class GenreService {
     }
 
     public void deleteGenre(Integer id) {
+
+
 
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFound("không thể tìm thấy thể loại trên"));

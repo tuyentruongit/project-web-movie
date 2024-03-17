@@ -130,9 +130,9 @@ public class MovieService  {
         });
         Slugify slugify = Slugify.builder().build();
         Boolean status = upsertMovieRequest.getStatus();
-        Date publishedAt = null;
+        LocalDate publishedAt = null;
         if (status){
-            publishedAt=new Date();
+            publishedAt=LocalDate.now();
         }
         List<Actor> actorList = actorRepository.findAllById(upsertMovieRequest.getActorIds());
         List<Director> directorList = directorRepository.findAllById(upsertMovieRequest.getDirectorIds());
@@ -149,7 +149,7 @@ public class MovieService  {
                 .actorList(actorList)
                 .directorList(directorList)
                 .genreList(genreList)
-                .createAt(new Date())
+                .createAt(LocalDate.now())
                 .updateAt(null)
                 .publishedAt(publishedAt)
                 .build();
@@ -162,9 +162,9 @@ public class MovieService  {
                 .orElseThrow(()-> new ResourceNotFound("Cannot find Movie by Id : " + id));
         Slugify slugify = Slugify.builder().build();
         Boolean status = upsertMovieRequest.getStatus();
-        Date publishedAt = null;
+        LocalDate publishedAt = null;
         if (status){
-            publishedAt=new Date();
+            publishedAt=LocalDate.now();
         }
         List<Actor> actorList = actorRepository.findAllById(upsertMovieRequest.getActorIds());
         List<Director> directorList = directorRepository.findAllById(upsertMovieRequest.getDirectorIds());
@@ -199,18 +199,15 @@ public class MovieService  {
     }
 
     public List<Movie> findMovieNew() {
-        Date currentDate = new Date();
+        LocalDate currentDate = LocalDate.now();
         List<Movie> movieListNew = new ArrayList<>();
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTime(currentDate);
+
         movieRepository.findAll().forEach(movie -> {
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(movie.getCreateAt());
-            if (calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                    calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)) {
-               movieListNew.add(movie);
+            if (movie.getCreateAt().getYear()==currentDate.getYear() && movie.getCreateAt().getMonth()==currentDate.getMonth()){
+                movieListNew.add(movie);
             }
         });
+
         return movieListNew;
 
     }

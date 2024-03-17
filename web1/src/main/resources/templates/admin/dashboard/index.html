@@ -55,7 +55,7 @@
                     <div class="col-lg-4 col-6">
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3><th:block th:text="${movies.size()}"></th:block> <span>/</span> <th:block th:text="${movieAll.size()}"></th:block>  </h3>
+                                <h3><th:block th:text="${users.size()}"></th:block> <span>/</span> <th:block th:text="${userAll.size()}"></th:block>  </h3>
                                 <p> Tài khoản mới / Tổng số tài khoản</p>
                             </div>
                             <div class="icon">
@@ -104,7 +104,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-bordered table-hover" >
+                                <table class="table table-bordered table-hover dashboard-table" >
                                   <div class="d-flex justify-content-between">
                                       <h6>Phim mới cập nhật</h6>
                                       <a class="mb-1" type="button">Xem tất Cả>></a>
@@ -112,29 +112,24 @@
                                     <thead>
                                     <tr>
                                         <th>Tên phim</th>
-                                        <th>Thể loại</th>
                                         <th>Loại phim</th>
+                                        <th>Thể loại</th>
                                         <th>Trạng thái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-<!--                                    <tr th:each="genre : ${genreList}">-->
-<!--                                        <td th:text="${genre.id}"></td>-->
-<!--                                        <td th:text="${genre.name}"></td>-->
-<!--                                        <td>-->
-<!--                                            <button type="button"-->
-<!--                                                    th:value="${genre.id}"-->
-<!--                                                    th:onclick="|uploadGenre(${genre.id})|"-->
-<!--                                                    class="btn btn-success btn-sm mx-4">-->
-<!--                                                <i class="fas fa-pencil-alt"></i>-->
-<!--                                            </button>-->
-<!--                                            <button th:onclick="|deleteGenre(${genre.id})|"-->
-<!--                                                    type="button"-->
-<!--                                                    th:value="${genre.id}"  class="btn btn-danger btn-sm mx-4">-->
-<!--                                                <i class="fas fa-trash-alt"></i>-->
-<!--                                            </button>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
+                                    <tr th:each="movie : ${movies}">
+                                        <td th:text="${movie.title}"></td>
+                                        <td th:text="${movie.movieType}"></td>
+                                        <td>
+                                        <span class="badge bg-info mr-1" th:each="genre : ${movie.getGenreList()}"
+                                              th:text="${genre.name}"></span>
+                                        </td>
+                                        <td>
+                                             <span class="badge" th:text="${movie.status ? 'Công khai' : 'Nháp'}"
+                                                   th:classappend="${movie.status ? 'bg-success' : 'bg-secondary'}"></span>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
 
@@ -150,36 +145,22 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover dashboard-table">
                                     <div class="d-flex justify-content-between">
-                                        <h6>Phim mới cập nhật</h6>
+                                        <h6>Danh sách tài khoản mới đăng ký</h6>
                                         <a class="mb-1" type="button">Xem tất Cả>></a>
                                     </div>
                                     <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>Tên Loại Phim</th>
-                                        <th></th>
+                                        <th>Tên tài khoản</th>
+                                        <th>Email</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <!--                                    <tr th:each="genre : ${genreList}">-->
-                                    <!--                                        <td th:text="${genre.id}"></td>-->
-                                    <!--                                        <td th:text="${genre.name}"></td>-->
-                                    <!--                                        <td>-->
-                                    <!--                                            <button type="button"-->
-                                    <!--                                                    th:value="${genre.id}"-->
-                                    <!--                                                    th:onclick="|uploadGenre(${genre.id})|"-->
-                                    <!--                                                    class="btn btn-success btn-sm mx-4">-->
-                                    <!--                                                <i class="fas fa-pencil-alt"></i>-->
-                                    <!--                                            </button>-->
-                                    <!--                                            <button th:onclick="|deleteGenre(${genre.id})|"-->
-                                    <!--                                                    type="button"-->
-                                    <!--                                                    th:value="${genre.id}"  class="btn btn-danger btn-sm mx-4">-->
-                                    <!--                                                <i class="fas fa-trash-alt"></i>-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
+                                    <tr th:each="user : ${users}">
+                                        <td th:text="${user.name}"></td>
+                                        <td th:text="${user.email}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
 
@@ -195,36 +176,24 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-bordered table-hover" >
+                                <table class="table table-bordered table-hover dashboard-table" >
                                     <div class="d-flex justify-content-between">
-                                        <h6>Phim mới cập nhật</h6>
+                                        <h6>Danh sách blog mới</h6>
                                         <a class="mb-1" type="button">Xem tất Cả>></a>
                                     </div>
                                     <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>Tên Loại Phim</th>
-                                        <th></th>
+                                        <th>Tiêu đề blog</th>
+                                        <th>Người tạo</th>
+                                        <th>Trạng thái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <!--                                    <tr th:each="genre : ${genreList}">-->
-                                    <!--                                        <td th:text="${genre.id}"></td>-->
-                                    <!--                                        <td th:text="${genre.name}"></td>-->
-                                    <!--                                        <td>-->
-                                    <!--                                            <button type="button"-->
-                                    <!--                                                    th:value="${genre.id}"-->
-                                    <!--                                                    th:onclick="|uploadGenre(${genre.id})|"-->
-                                    <!--                                                    class="btn btn-success btn-sm mx-4">-->
-                                    <!--                                                <i class="fas fa-pencil-alt"></i>-->
-                                    <!--                                            </button>-->
-                                    <!--                                            <button th:onclick="|deleteGenre(${genre.id})|"-->
-                                    <!--                                                    type="button"-->
-                                    <!--                                                    th:value="${genre.id}"  class="btn btn-danger btn-sm mx-4">-->
-                                    <!--                                                <i class="fas fa-trash-alt"></i>-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
+                                    <tr th:each="blog : ${blogs}">
+                                        <td th:text="${blog.title}"></td>
+                                        <td th:text="${blog.user.name}"></td>
+                                        <td th:text="${blog.status}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
 
@@ -262,12 +231,13 @@
     <script src="/admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="/admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
     <script>
-        $('#movie-table').DataTable({
+        $('.dashboard-table').DataTable({
             "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "pageLength": 5,
+            "info": false,
             "autoWidth": false,
             "responsive": true,
             "order": []

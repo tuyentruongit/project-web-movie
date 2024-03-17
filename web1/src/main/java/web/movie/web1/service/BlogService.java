@@ -14,6 +14,7 @@ import web.movie.web1.exception.ResourceNotFound;
 import web.movie.web1.model.request.UpsertBlogRequest;
 import web.movie.web1.repository.BlogRepository;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,9 +47,9 @@ public class BlogService {
         User user = (User) session.getAttribute("currentUser");
         Slugify slugify = Slugify.builder().build();
         Boolean status = upsertBlogRequest.getStatus();
-        Date publishedAt = null ;
+        LocalDate publishedAt = null ;
         if (status){
-            publishedAt = new Date();
+            publishedAt = LocalDate.now();
         }
 
         Blog blog = Blog.builder()
@@ -58,8 +59,8 @@ public class BlogService {
                 .content(upsertBlogRequest.getContent())
                 .thumbnail(upsertBlogRequest.getThumbnail())
                 .status(upsertBlogRequest.getStatus())
-                .createAt( new Date())
-                .updateAt( new Date())
+                .createAt( LocalDate.now())
+                .updateAt( LocalDate.now())
                 .publishedAt(publishedAt)
                 .user(user)
                 .build();
@@ -76,16 +77,17 @@ public class BlogService {
                 .orElseThrow(()-> new ResourceNotFound("Cannot find blog by Id : " + id));
         Slugify slugify = Slugify.builder().build();
         Boolean status = upsertBlogRequest.getStatus();
-        Date publishedAt = null ;
+        LocalDate publishedAt = null ;
         if (status){
-            publishedAt = new Date();
+
+            publishedAt = LocalDate.now() ;
         }
         blog.setContent(upsertBlogRequest.getContent());
         blog.setDescription(upsertBlogRequest.getDescription());
         blog.setStatus(upsertBlogRequest.getStatus());
         blog.setTitle(upsertBlogRequest.getTitle());
         blog.setThumbnail(upsertBlogRequest.getThumbnail());
-        blog.setUpdateAt(new Date());
+        blog.setUpdateAt(LocalDate.now());
         blog.setPublishedAt(publishedAt);
         blog.setSlug(slugify.slugify(upsertBlogRequest.getTitle()));
         return blogRepository.save(blog);
@@ -97,15 +99,10 @@ public class BlogService {
         blogRepository.delete(blog);
     }
     public List<Blog> findBlogNew() {
-        Date currentDate = new Date();
+        LocalDate currentDate =LocalDate.now();
         List<Blog> blogListNew = new ArrayList<>();
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTime(currentDate);
         blogRepository.findAll().forEach(blog -> {
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(blog.getCreateAt());
-            if (calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                    calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)) {
+            if (blog.getCreateAt().getMonth()==currentDate.getMonth()&&blog.getCreateAt().getYear()==currentDate.getYear()){
                 blogListNew.add(blog);
             }
         });

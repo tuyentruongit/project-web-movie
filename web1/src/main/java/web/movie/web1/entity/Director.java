@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Director {
     @Column(columnDefinition = "TEXT" )
     String description;
     String avatar;
-    Date birthday;
-    Date createdAt;
-    Date updatedAt;
+    LocalDate birthday;
+    LocalDate createdAt;
+    LocalDate updatedAt;
 }

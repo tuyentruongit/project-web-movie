@@ -7,6 +7,7 @@ import web.movie.web1.entity.User;
 import web.movie.web1.model.Role;
 import web.movie.web1.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,18 +20,14 @@ import static web.movie.web1.model.Role.ROLE_USER;
 public class UserService {
     private final UserRepository userRepository;
     public List<User> findUserNew() {
-        Date currentDate = new Date();
+        LocalDate currentDate = LocalDate.now();
         List<User> userListNew = new ArrayList<>();
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTime(currentDate);
         userRepository.findAll().forEach(user -> {
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(user.getCreateAt());
-            if (calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                    calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)) {
+            if (user.getCreateAt().getMonth()==currentDate.getMonth()&& user.getCreateAt().getYear()==currentDate.getYear()){
                 userListNew.add(user);
             }
         });
+
         return userListNew;
 
     }

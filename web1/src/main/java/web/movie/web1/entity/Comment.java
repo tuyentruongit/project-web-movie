@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -23,8 +24,8 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     String comment;
 
-    Date createAt;
-    Date updateAt;
+    LocalDate createAt;
+    LocalDate updateAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

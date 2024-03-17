@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -32,9 +33,9 @@ public class Blog {
     Boolean status;
 
 
-    Date createAt;
-    Date updateAt;
-    Date publishedAt;
+    LocalDate createAt;
+    LocalDate updateAt;
+    LocalDate publishedAt;
 
 
     @ManyToOne

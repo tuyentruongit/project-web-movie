@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -26,9 +27,9 @@ public class Episode {
     Integer duration;
 
 
-    Date publishAt;
-    Date createdAt;
-    Date updatedAt;
+    LocalDate publishAt;
+    LocalDate createdAt;
+    LocalDate updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")

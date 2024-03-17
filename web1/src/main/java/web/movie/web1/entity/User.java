@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.mapping.List;
 import web.movie.web1.model.Role;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -36,8 +37,8 @@ public class User {
     String avatar;
 
 
-    Date createAt;
-    Date updateAt;
+    LocalDate createAt;
+    LocalDate updateAt;
 
 
 

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -33,11 +34,11 @@ public class Image {
 
 
 
-    Date createAt;
+    LocalDate createAt;
 
     @PrePersist
     public void prePersist(){
-        this.createAt = new Date();
+        this.createAt = LocalDate.now();
     }
 
 }

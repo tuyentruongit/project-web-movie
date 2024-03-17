@@ -29,18 +29,6 @@ public class ReviewApi {
     public ResponseEntity<?> updateReview(@PathVariable Integer id,@RequestBody UpsertReviewRequest reviewRequest){
         Review review = reviewService.updateReiview(id,reviewRequest);
         return ResponseEntity.ok(review);
-//        try{
-//            Review review = reviewService.updateReiview(id,reviewRequest);
-//            return ResponseEntity.ok(review);
-//
-//        }catch (ResourceNotFound e){
-//            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND,e.getMessage());
-//            return  new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
-//        }
-//        catch (BadRequestException e){
-//            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST,e.getMessage());
-//            return  new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
-//        }
 
     }
 
